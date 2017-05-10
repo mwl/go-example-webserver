@@ -1,9 +1,15 @@
+workspace:
+  base: /go
+  path: .
+
+
 pipeline:
   build:
-    image: docker
+    image: golang
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
     commands:
-      - docker run --rm -v ${PWD}:/go golang:1.8 go build -o /go/output/server
-      - docker run --rm -v ${PWD}:/go golang:1.8 ./test.sh
+      - go build -o /go/output/server
+      - ./test.sh
       - docker build -t mwl/go-example-webserver .
