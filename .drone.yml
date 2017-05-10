@@ -4,4 +4,6 @@ pipeline:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
+      - docker run --rm -v $(pwd):/go golang:1.8 go build -o /go/output/server
+      - docker run --rm -v $(pwd):/go golang:1.8 ./test.sh
       - docker build -t mwl/go-example-webserver .
